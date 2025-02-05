@@ -40,31 +40,32 @@ class _RegistroFormState extends State<RegistroForm>
   File? _fotoPersonal;
   var contactos;
 
-  Future<void> _seleccionarFoto(ImageSource source, String photoType) async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: source);
-    if (pickedImage != null) {
-      setState(() {
-        switch (photoType) {
-          case 'INE':
-            _ineFoto = File(pickedImage.path);
-            String imageName = _ineFoto!.path.split('/').last;
-            print('Nombre de la imagen: $imageName');
-            break;
-          case 'Domicilio':
-            _domicilioFoto = File(pickedImage.path);
-            String imageName = _domicilioFoto!.path.split('/').last;
-            print('Nombre de la imagen: $imageName');
-            break;
-          case 'FotoPersonal':
-            _fotoPersonal = File(pickedImage.path);
-            String imageName = _fotoPersonal!.path.split('/').last;
-            print('Nombre de la imagen: $imageName');
-            break;
-        }
-      });
-    }
+ Future<void> _seleccionarFoto(ImageSource source, String photoType) async {
+  final picker = ImagePicker();
+  final pickedImage = await picker.pickImage(source: source);
+  if (pickedImage != null) {
+    setState(() {
+      switch (photoType) {
+        case 'INE':
+          _ineFoto = File(pickedImage.path);
+          String imageName = _ineFoto!.path.split('/').last;
+          print('Nombre de la imagen: $imageName');
+          break;
+        case 'Domicilio':
+          _domicilioFoto = File(pickedImage.path);
+          String imageName = _domicilioFoto!.path.split('/').last;
+          print('Nombre de la imagen: $imageName');
+          break;
+        case 'FotoPersonal':
+          _fotoPersonal = File(pickedImage.path);
+          String imageName = _fotoPersonal!.path.split('/').last;
+          print('Nombre de la imagen: $imageName');
+          break;
+      }
+    });
   }
+}
+
 
   var latitud;
   var longitud;
