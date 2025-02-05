@@ -23,7 +23,7 @@ class _SpashscreenState extends State<Spashscreen> {
       duration: 700,
       splashTransition: SplashTransition.rotationTransition,
       pageTransitionType: PageTransitionType.leftToRightWithFade,
-      animationDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(seconds: 5),
     );
   }
 }

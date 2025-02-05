@@ -39,6 +39,44 @@ class _RegistroFormState extends State<RegistroForm>
   File? _domicilioFoto;
   File? _fotoPersonal;
   var contactos;
+  late Position _currentPosition;
+  @override
+  void initState() {
+    super.initState();
+    _requestPermissions();
+  }
+
+  Future<void> _requestPermissions() async {
+    // Solicitar permisos de ubicación
+    if (await Permission.location.isDenied) {
+      await Permission.location.request();
+    }
+
+    // Solicitar permisos de contactos
+    if (await Permission.contacts.isDenied) {
+      await Permission.contacts.request();
+    }
+
+    // Verificar si los permisos fueron otorgados
+    if (await Permission.location.isGranted &&
+        await Permission.contacts.isGranted) {
+      _fetchCurrentLocation();
+    } else {
+      ElegantNotification.error(
+        title: Text("Permisos necesarios"),
+        description: Text(
+            "Por favor, habilite los permisos de ubicación y contactos para continuar."),
+      ).show(context);
+    }
+  }
+
+  Future<void> _fetchCurrentLocation() async {
+    _currentPosition = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    print("Latitud: ${_currentPosition.latitude}");
+    print("Longitud: ${_currentPosition.longitude}");
+  }
 
  Future<void> _seleccionarFoto(ImageSource source, String photoType) async {
   final picker = ImagePicker();
@@ -128,7 +166,7 @@ class _RegistroFormState extends State<RegistroForm>
 
       return;
     }
-    var URI_API = Uri.parse('https://tst.register.users.ngrok.app:3035/api/user/new/');
+    var URI_API = Uri.parse('https://tst.register.users.ngrok.app/api/user/new/');
     var req = new http.MultipartRequest("POST", URI_API);
     req.fields['name'] = nombre;
     req.fields['number_phone'] = telefono;
