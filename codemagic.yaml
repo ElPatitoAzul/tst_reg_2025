@@ -3,8 +3,6 @@ workflows:
     name: Build Android APK
     environment:
       flutter: stable
-      android:
-        ndk: latest
     scripts:
       - name: Get Flutter dependencies
         script: flutter pub get
