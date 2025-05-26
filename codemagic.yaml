@@ -4,10 +4,13 @@ workflows:
     max_build_duration: 30
     environment:
       flutter: 3.13.9
+      java: 17
     scripts:
       - name: Get dependencies
-        script: flutter pub get
+        script: |
+          flutter pub get
       - name: Build APK (unsigned)
-        script: flutter build apk --release --no-tree-shake-icons
+        script: |
+          flutter build apk --release --no-tree-shake-icons
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
