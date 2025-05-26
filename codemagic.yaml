@@ -13,7 +13,7 @@ workflows:
         - signing
     scripts:
       - name: Set Dart SDK version (estable)
-        script: echo "sdk: '>=3.2.0 <4.0.0'" > pubspec_override.yaml
+        script: 'echo "sdk: \'>=3.2.0 <4.0.0\'" > pubspec_override.yaml'
       - name: Override SDK version in pubspec
         script: |
           sed -i.bak '/^environment:/,/^ *[^:]*:/ s/^ *sdk:.*$/  sdk: ">=3.2.0 <4.0.0"/' pubspec.yaml
