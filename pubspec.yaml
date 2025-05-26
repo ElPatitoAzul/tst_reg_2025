@@ -20,7 +20,7 @@ dependencies:
   elegant_notification: ^2.5.1
   intl_phone_field: ^3.2.0
   geolocator: ^9.0.2
-  permission_handler: ^11.3.0
+  permission_handler: ^11.0.1
   flutter_contacts: ^1.1.9+2
   http: ^1.1.0
 
