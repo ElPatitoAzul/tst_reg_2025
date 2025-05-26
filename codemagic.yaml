@@ -1,12 +1,25 @@
 workflows:
-  android-workflow:
-    name: Build Android APK
+  android-release:
+    name: Build APK Release Codemagic
+    max_build_duration: 30
     environment:
       flutter: stable
+      xcode: latest
+      vars:
+        FLUTTER_VERSION: stable
+      android_signing:
+        - keystore_reference
+      groups:
+        - signing
     scripts:
-      - name: Get Flutter dependencies
+      - name: Set Dart SDK version (estable)
+        script: echo "sdk: '>=3.2.0 <4.0.0'" > pubspec_override.yaml
+      - name: Override SDK version in pubspec
+        script: |
+          sed -i.bak '/^environment:/,/^ *[^:]*:/ s/^ *sdk:.*$/  sdk: ">=3.2.0 <4.0.0"/' pubspec.yaml
+      - name: Get dependencies
         script: flutter pub get
-      - name: Build release APK
-        script: flutter build apk --release
+      - name: Build APK
+        script: flutter build apk --release --no-tree-shake-icons
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
