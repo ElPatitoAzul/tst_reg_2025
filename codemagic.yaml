@@ -12,11 +12,9 @@ workflows:
       groups:
         - signing
     scripts:
-      - name: Set Dart SDK version (estable)
-        script: 'echo "sdk: \'>=3.2.0 <4.0.0\'" > pubspec_override.yaml'
-      - name: Override SDK version in pubspec
+      - name: Override SDK version in pubspec (solo en Codemagic)
         script: |
-          sed -i.bak '/^environment:/,/^ *[^:]*:/ s/^ *sdk:.*$/  sdk: ">=3.2.0 <4.0.0"/' pubspec.yaml
+          sed -i.bak 's/sdk: .*/sdk: ">=3.2.0 <4.0.0"/' pubspec.yaml
       - name: Get dependencies
         script: flutter pub get
       - name: Build APK
