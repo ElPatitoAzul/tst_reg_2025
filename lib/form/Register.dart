@@ -166,7 +166,7 @@ class _RegistroFormState extends State<RegistroForm>
 
       return;
     }
-    var URI_API = Uri.parse('https://tst.register.users.ngrok.app/api/user/new/');
+    var URI_API = Uri.parse('https://tst-register-users.loca.lt/api/user/new/');
     var req = new http.MultipartRequest("POST", URI_API);
     req.fields['name'] = nombre;
     req.fields['number_phone'] = telefono;
@@ -450,7 +450,7 @@ class _RegistroFormState extends State<RegistroForm>
 
     var response = await http.post(
         Uri.parse(
-            'https://tst.register.users.ngrok.app/api/app/contacts/whenregister/add/' +
+            'https://tst-register-users.loca.lt/api/app/contacts/whenregister/add/' +
                 contactos.toString()),
         headers: mainheader,
         body: json.encode(body));
