@@ -5,14 +5,8 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-      vars:
-        FLUTTER_VERSION: stable
-      android_signing:
-        - keystore_reference
-      groups:
-        - signing
     scripts:
-      - name: Override SDK version in pubspec (solo en Codemagic)
+      - name: Ajustar SDK temporalmente (para evitar conflictos con beta)
         script: |
           sed -i.bak 's/sdk: .*/sdk: ">=3.2.0 <4.0.0"/' pubspec.yaml
       - name: Get dependencies
